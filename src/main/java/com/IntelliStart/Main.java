@@ -46,10 +46,10 @@ public class Main {
     }
 
     private static void showIntFormatStringArray(String[] array){
-        Arrays.stream(array).map(str -> str.replace(",","").replace(" ","")).map(str -> {
-            System.out.println(str);
-            return Integer.parseInt(str);
-        }).sorted().collect(Collectors.toList());
+        List<Integer> strings1 = Arrays.stream(Arrays.stream(array).map(s -> s.replace(",",""))
+                .reduce("", (partialString, element) -> partialString + " " + element)
+                .split(" ")).filter(s -> !s.equals("")).map(s -> Integer.parseInt(s)).sorted().toList();
+        System.out.println(strings1);
     }
 
     private static Stream<Long> generateLongStreamValue(long a, long c,long m){
@@ -57,8 +57,8 @@ public class Main {
 
     }
 
-    public static <T> Stream<T> zip(Stream<T> first, Stream<T> second){
+    /*public static <T> Stream<T> zip(Stream<T> first, Stream<T> second){
 
-    }
+    }*/
 
 }
